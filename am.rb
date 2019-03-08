@@ -30,5 +30,9 @@ class AM
     def get_content
       @doc.css('/html/body/main/article/div/div/div[2]/div[2]/p').text
     end
+
+    def to_csv_row
+      [title, author, date, content]
+    end
 end
 
