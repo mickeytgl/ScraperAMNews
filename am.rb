@@ -3,7 +3,7 @@ require 'open-uri'
 require 'pry'
 
 class AM
-  attr_reader :title, :author, :date, :content
+  attr_reader :title, :author, :date, :content, :doc, :tags
 
   def initialize(url)
     @doc = Nokogiri::HTML(open(url))
@@ -11,6 +11,11 @@ class AM
     @author = get_author
     @date = get_date
     @content = get_content
+    @tags = get_tags
+  end
+
+  def to_csv_row
+    [title, author, date, content, tags]
   end
 
   private
@@ -31,8 +36,12 @@ class AM
       @doc.css('/html/body/main/article/div/div/div[2]/div[2]/p').text
     end
 
-    def to_csv_row
-      [title, author, date, content]
+    def get_tags
+      tags = []
+      @doc.xpath('//*[@class="tags__content"]/li').children.each do |li|
+        tags << li.text
+      end
+      tags
     end
 end
 

@@ -19,18 +19,11 @@ RSpec.describe AM, "stuff" do
     end
 
     it "parses the article's tags correctly" do
-      skip
-      expect(article.date).to match(/02 de Marzo/)
+      expect(article.tags.first).to match(/NOTICIAS/)
     end
      
     it "parses the article's content correctly" do
       expect(article.content).to match(/El titular de la Asamblea Nacional/)
     end
-
-    it "parses the article's images correctly" do
-      skip
-      expect(article.date).to match(/02 de Marzo/)
-    end
-
   end
 end
