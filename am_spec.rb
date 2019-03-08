@@ -1,7 +1,7 @@
 require 'rspec'
 require_relative './am.rb'
 
-RSpec.describe AM, "stuff" do
+RSpec.describe AM, "News Parser" do
   let(:url) { 'https://www.am.com.mx/noticias/Arriba-Guaido-a-Buenos-Aires-sigue-desafiando-a-Maduro-20190302-0008.html' }
   let(:article) { AM.new url }
 
