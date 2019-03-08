@@ -37,11 +37,8 @@ class AM
     end
 
     def get_tags
-      tags = []
-      @doc.xpath('//*[@class="tags__content"]/li').children.each do |li|
-        tags << li.text
-      end
-      tags
+      path = @doc.xpath('//*[@class="tags__content"]/li').children
+      path.map { |element| element.text }
     end
 end
 
