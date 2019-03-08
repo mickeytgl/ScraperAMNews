@@ -38,7 +38,7 @@ class AM
 
     def get_tags
       path = @doc.xpath('//*[@class="tags__content"]/li').children
-      path.map { |element| element.text }
+      path.map { |element| element.text.capitalize }
     end
 end
 
