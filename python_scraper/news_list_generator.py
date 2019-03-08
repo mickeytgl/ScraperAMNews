@@ -1,13 +1,12 @@
 from selenium import webdriver
 from time import sleep
-import requests
 import argparse
 
 # Download and install Chromedriver:
 # https://sites.google.com/a/chromium.org/chromedriver/downloads
 
 # Global:
-pagination = 10
+pagination = 5
 out_file = 'links_to_news.txt'
 chromedriver_path = './chromedriver'  # For downloaded version
 
@@ -17,16 +16,22 @@ options = webdriver.ChromeOptions()
 if not verbose:
     options.add_argument('headless')
 
+
 # Construct the argument parser:
-ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--pages", type=int, default=pagination,
-                help="Number of pages to scrape.")
-ap.add_argument("-f", "--file", default=out_file,
-                help="File to save the news list.")
-args = vars(ap.parse_args())
+def news_parser():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-p", "--pages", type=int, default=pagination,
+                    help="Number of pages to scrape.")
+    ap.add_argument("-cd", "--chromedriver", default=chromedriver_path,
+                    help="Path to chromedriver.")
+    ap.add_argument("-f", "--file", default=out_file,
+                    help="File to save the news list.")
+    args = vars(ap.parse_args())
+
+    return args
 
 
-def news_list_generator(pagination, out_file):
+def news_list_generator(chromedriver_path, pagination, out_file):
     # Browser launch with chromedriver:
     # browser = webdriver.Chrome(chrome_options=options)
 
@@ -47,7 +52,7 @@ def news_list_generator(pagination, out_file):
     return
 
 
-def scrape_news(browser, pagination, out_file_name):
+def scrape_news(browser, pagination, out_file):
     # Look for button and click it:
     button_xpath = '//*[@class="viewmore"]/button'
     browser.find_element_by_xpath(button_xpath).click()
@@ -74,6 +79,7 @@ def scrape_news(browser, pagination, out_file_name):
 
 
 if __name__ == '__main__':
+    args = news_parser()
     pages = args['pages']
     out_file = args['file']
-    news_list_generator(pages, out_file)
+    news_list_generator(chromedriver_path, pages, out_file)
