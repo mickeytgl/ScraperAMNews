@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative 'am.rb'
+require_relative 'ruby_scraper/am.rb'
 
 ARGV.each do|url|
   article = AM.new url
