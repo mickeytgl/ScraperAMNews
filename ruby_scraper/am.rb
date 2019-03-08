@@ -21,19 +21,19 @@ class AM
   private
 
     def get_title
-      @doc.xpath('/html/body/main/article/div/header/h1').children.text
+      @doc.xpath('//*[@class="newsfull__title"]').children.text
     end
 
     def get_author
-      @doc.xpath('/html/body/main/article/div/header/div[2]/p/span').text.strip
+      @doc.xpath('//*[@class="newsfull__author"]/span').text.strip
     end
 
     def get_date
-      @doc.xpath('/html/body/main/article/div/header/div[2]/div[2]/time').text
+      @doc.xpath('//*[@class="newsfull__time"]/@datetime').first.value
     end
 
     def get_content
-      @doc.css('/html/body/main/article/div/div/div[2]/div[2]/p').text
+      @doc.xpath('//div[@class="newsfull__body"]/p').text
     end
 
     def get_tags
